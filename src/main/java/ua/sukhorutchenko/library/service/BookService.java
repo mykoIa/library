@@ -1,9 +1,8 @@
 package ua.sukhorutchenko.library.service;
 
-import ua.sukhorutchenko.library.model.Book;
-import ua.sukhorutchenko.library.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.repository.BookRepository;
 
 import java.util.List;
 
@@ -12,13 +11,8 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-    }
-
-    public Book findBookById(Long id){
-        return bookRepository.getOne(id);
     }
 
     public List<Book> findAllBook(){
@@ -33,9 +27,7 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public void updateBook(Long id){
-        bookRepository.existsById(id);
+    public Book findBookById(Long id) {
+        return bookRepository.findById(id).get();
     }
 }
-
-//    create read update delete

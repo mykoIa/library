@@ -1,11 +1,11 @@
 package ua.sukhorutchenko.library.repository;
 
 
-import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 
 }
