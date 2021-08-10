@@ -14,8 +14,10 @@ public class BookInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "genre")
     private String genre;
+
     @Column(name = "number_of_pages")
     private Long numberOfPages;
 

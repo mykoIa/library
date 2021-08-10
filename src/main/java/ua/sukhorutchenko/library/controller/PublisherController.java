@@ -42,7 +42,7 @@ public class PublisherController {
 
     @RequestMapping("/update/{id}&{name}")
     public void updatePublisher(@PathVariable("id") Long id,
-                             @PathVariable("name") String name) {
+                                @PathVariable("name") String name) {
         publisherService.updatePublisher(publisherService.findPublisherById(id), name);
     }
 }

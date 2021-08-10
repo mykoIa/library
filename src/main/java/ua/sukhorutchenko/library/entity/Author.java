@@ -10,9 +10,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "author")
 public class Author {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "full_name")
     private String fullName;
 

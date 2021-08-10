@@ -18,15 +18,15 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAllBook(){
+    public List<Book> findAllBook() {
         return bookRepository.findAll();
     }
 
-    public Book addBook(Book book){
+    public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
-    public void deleteBookById(Long id){
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
 
