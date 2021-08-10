@@ -21,24 +21,29 @@ public class PublisherController {
     }
 
     @GetMapping("/get")
-    public List<Publisher> showAllUser() {
+    public List<Publisher> showAllPublisher() {
         return publisherService.findAllPublisher();
     }
 
     @GetMapping("/get/{id}")
-    public Publisher findAuthorById(@PathVariable("id") Long id) {
+    public Publisher findPublisherById(@PathVariable("id") Long id) {
         return publisherService.findPublisherById(id);
     }
 
-
     @DeleteMapping("/delete/{id}")
-    public void deleteAuthor(@PathVariable("id") Long id) {
+    public void deletePublisher(@PathVariable("id") Long id) {
         publisherService.deletePublisherById(id);
     }
 
     @GetMapping("/add/{name}")
-    public void addAuthor(@PathVariable("name") String name) {
+    public void addPublisher(@PathVariable("name") String name) {
         publisherService.addPublisher(new Publisher(name));
+    }
+
+    @RequestMapping("/update/{id}&{name}")
+    public void updatePublisher(@PathVariable("id") Long id,
+                             @PathVariable("name") String name) {
+        publisherService.updatePublisher(publisherService.findPublisherById(id), name);
     }
 }
 

@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.service.AuthorService;
+import ua.sukhorutchenko.library.service.BookInformationService;
 import ua.sukhorutchenko.library.service.BookService;
+import ua.sukhorutchenko.library.service.PublisherService;
 
 import java.util.List;
 
@@ -15,9 +18,15 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final AuthorService authorService;
+    private final PublisherService publisherService;
+    private final BookInformationService bookInformationService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService, BookInformationService bookInformationService) {
         this.bookService = bookService;
+        this.authorService = authorService;
+        this.publisherService = publisherService;
+        this.bookInformationService = bookInformationService;
     }
 
     @GetMapping("/get")
@@ -36,10 +45,25 @@ public class BookController {
         bookService.deleteBookById(id);
     }
 
-    @RequestMapping("/add/{name}&{author_id}")
+    @RequestMapping("/add/{name}&{author_id}&{publisher_id}&{infoId}")
     public void addBook(@PathVariable("name") String name,
-                        @PathVariable("author_id") Long authorId) {
-        bookService.addBook(new Book(name, authorId));
+                        @PathVariable("author_id") Long authorId,
+                        @PathVariable("publisher_id") Long publisherId,
+                        @PathVariable("infoId") Long infoId) {
+        bookService.addBook(new Book(name, authorService.findAuthorById(authorId),
+                publisherService.findPublisherById(publisherId), bookInformationService.findBookInformationById(infoId)));
+    }
+
+    @RequestMapping("/update/{book_id}&{name}&{author_id}&{publisher_id}&{infoId}")
+    public void updateBook(@PathVariable("book_id") Long bookId,
+                           @PathVariable("name") String name,
+                           @PathVariable("author_id") Long authorId,
+                           @PathVariable("publisher_id") Long publisherId,
+                           @PathVariable("infoId") Long infoId) {
+        bookService.updateBook(bookService.findBookById(bookId), name,
+                authorService.findAuthorById(authorId),
+                publisherService.findPublisherById(publisherId),
+                bookInformationService.findBookInformationById(infoId));
     }
 
 }

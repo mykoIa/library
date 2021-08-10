@@ -21,23 +21,30 @@ public class BookInformationController {
     }
 
     @GetMapping("/get")
-    public List<BookInformation> showAllUser() {
+    public List<BookInformation> showAllBookInfo() {
         return bookInformationService.findAllBookInformation();
     }
 
     @GetMapping("/get/{id}")
-    public BookInformation findAuthorById(@PathVariable("id") Long id) {
+    public BookInformation findBookInfoById(@PathVariable("id") Long id) {
         return bookInformationService.findBookInformationById(id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteAuthor(@PathVariable("id") Long id) {
+    public void deleteBookInfo(@PathVariable("id") Long id) {
         bookInformationService.deleteBookInformationById(id);
     }
 
     @GetMapping("/add/{genre}&{numberOfPages}")
-    public void addAuthor(@PathVariable("genre") String genre,
-                          @PathVariable("numberOfPages") Long numberOfPages) {
+    public void addBookInfo(@PathVariable("genre") String genre,
+                            @PathVariable("numberOfPages") Long numberOfPages) {
         bookInformationService.addBookInformation(new BookInformation(genre, numberOfPages));
+    }
+
+    @RequestMapping("/update/{id}&{genre}&{numberOfPages}")
+    public void updateBookInfo(@PathVariable("id") Long id,
+                               @PathVariable("name") String genre,
+                               @PathVariable("numberOfPages") Long numberOfPages) {
+        bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(id), genre, numberOfPages);
     }
 }

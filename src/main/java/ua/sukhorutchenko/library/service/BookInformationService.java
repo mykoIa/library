@@ -30,4 +30,10 @@ public class BookInformationService {
     public void deleteBookInformationById(Long id) {
         bookInformationRepository.deleteById(id);
     }
+
+    public void updateBookInformation(BookInformation bookInfo, String genre, Long numberOfPages) {
+        bookInfo.setGenre(genre);
+        bookInfo.setNumberOfPages(numberOfPages);
+        bookInformationRepository.save(bookInfo);
+    }
 }

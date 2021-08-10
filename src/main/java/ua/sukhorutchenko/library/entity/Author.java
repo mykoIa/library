@@ -2,13 +2,10 @@ package ua.sukhorutchenko.library.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Entity
 @Table(name = "author")
@@ -18,9 +15,6 @@ public class Author {
     private Long id;
     @Column(name = "full_name")
     private String fullName;
-
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<Book> book;
 
     public Author() {
     }
@@ -45,11 +39,4 @@ public class Author {
         this.fullName = fullName;
     }
 
-    public Set<Book> getBook() {
-        return book;
-    }
-
-    public void setBook(Set<Book> book) {
-        this.book = book;
-    }
 }

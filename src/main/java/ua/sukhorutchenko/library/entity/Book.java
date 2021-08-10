@@ -23,7 +23,8 @@ public class Book {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(optional = false, mappedBy = "book")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_information_id")
     private BookInformation bookInformation;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
@@ -37,8 +38,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, Long id) {
+    public Book(String name, Author author, Publisher publisher, BookInformation bookInformation) {
         this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.bookInformation = bookInformation;
     }
 
     public Long getId() {

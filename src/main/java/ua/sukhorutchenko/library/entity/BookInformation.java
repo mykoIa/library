@@ -1,13 +1,10 @@
 package ua.sukhorutchenko.library.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,13 +19,12 @@ public class BookInformation {
     @Column(name = "number_of_pages")
     private Long numberOfPages;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_id")
-    private Book book;
-
     public BookInformation(String genre, Long numberOfPages) {
         this.genre = genre;
         this.numberOfPages = numberOfPages;
+    }
+
+    public BookInformation() {
     }
 
     public Long getId() {
@@ -55,11 +51,4 @@ public class BookInformation {
         this.numberOfPages = numberOfPages;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
 }

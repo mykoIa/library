@@ -30,4 +30,9 @@ public class PublisherService {
     public Publisher findPublisherById(Long id) {
         return publisherRepository.findById(id).get();
     }
+
+    public void updatePublisher(Publisher publisher, String name) {
+        publisher.setPublisherName(name);
+        publisherRepository.save(publisher);
+    }
 }
