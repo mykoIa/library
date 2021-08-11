@@ -23,4 +23,8 @@ public class Publisher {
     @Column(name = "publisher_name")
     private String publisherName;
 
+    public Publisher(String name) {
+        this.publisherName = name;
+    }
+
 }

@@ -8,6 +8,7 @@
 
 ## Description
 #### The response is in JSON format
+You can use swagger for test /api/library/swagger-ui.html
 ### Author
 #### /api/library/author
 /get - get all author \
