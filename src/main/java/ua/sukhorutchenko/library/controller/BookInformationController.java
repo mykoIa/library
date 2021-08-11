@@ -1,6 +1,5 @@
 package ua.sukhorutchenko.library.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,7 @@ import ua.sukhorutchenko.library.service.BookInformationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/library/bookInfo")
+@RequestMapping("/bookInfo")
 public class BookInformationController {
 
     private final BookInformationService bookInformationService;
@@ -30,7 +29,7 @@ public class BookInformationController {
         return bookInformationService.findBookInformationById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public void deleteBookInfo(@PathVariable("id") Long id) {
         bookInformationService.deleteBookInformationById(id);
     }
@@ -43,7 +42,7 @@ public class BookInformationController {
 
     @RequestMapping("/update/{id}&{genre}&{numberOfPages}")
     public void updateBookInfo(@PathVariable("id") Long id,
-                               @PathVariable("name") String genre,
+                               @PathVariable("genre") String genre,
                                @PathVariable("numberOfPages") Long numberOfPages) {
         bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(id), genre, numberOfPages);
     }

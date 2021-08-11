@@ -10,7 +10,7 @@ import ua.sukhorutchenko.library.service.AuthorService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/library/author")
+@RequestMapping("/author")
 public class AuthorController {
 
     private final AuthorService authorService;

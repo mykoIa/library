@@ -11,7 +11,7 @@ import ua.sukhorutchenko.library.service.PublisherService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/library/publisher")
+@RequestMapping("/publisher")
 public class PublisherController {
 
     private final PublisherService publisherService;

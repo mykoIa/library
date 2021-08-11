@@ -22,16 +22,16 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book findBookById(Long id) {
+        return bookRepository.findById(id).get();
+    }
+
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
-    }
-
-    public Book findBookById(Long id) {
-        return bookRepository.findById(id).get();
     }
 
     public void updateBook(Book book, String name, Author author, Publisher publisher, BookInformation bookInformation) {

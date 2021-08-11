@@ -14,7 +14,7 @@ import ua.sukhorutchenko.library.service.PublisherService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/library/book")
+@RequestMapping("/book")
 public class BookController {
 
     private final BookService bookService;
@@ -35,13 +35,13 @@ public class BookController {
     }
 
     @GetMapping("/get/{id}")
-    public Book findUserById(@PathVariable("id") Long id) {
+    public Book findBookById(@PathVariable("id") Long id) {
         return bookService.findBookById(id);
     }
 
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable("id") Long id) {
+    public void deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBookById(id);
     }
 

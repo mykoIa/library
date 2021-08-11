@@ -19,16 +19,16 @@ public class PublisherService {
         return publisherRepository.findAll();
     }
 
+    public Publisher findPublisherById(Long id) {
+        return publisherRepository.findById(id).get();
+    }
+
     public Publisher addPublisher(Publisher publisher) {
         return publisherRepository.save(publisher);
     }
 
     public void deletePublisherById(Long id) {
         publisherRepository.deleteById(id);
-    }
-
-    public Publisher findPublisherById(Long id) {
-        return publisherRepository.findById(id).get();
     }
 
     public void updatePublisher(Publisher publisher, String name) {
