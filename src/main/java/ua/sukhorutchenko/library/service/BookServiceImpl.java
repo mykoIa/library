@@ -6,15 +6,16 @@ import ua.sukhorutchenko.library.entity.Book;
 import ua.sukhorutchenko.library.entity.BookInformation;
 import ua.sukhorutchenko.library.entity.Publisher;
 import ua.sukhorutchenko.library.repository.BookRepository;
+import ua.sukhorutchenko.library.service.interf.BookService;
 
 import java.util.List;
 
 @Service
-public class BookService {
+public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 

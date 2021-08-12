@@ -3,15 +3,16 @@ package ua.sukhorutchenko.library.service;
 import org.springframework.stereotype.Service;
 import ua.sukhorutchenko.library.entity.BookInformation;
 import ua.sukhorutchenko.library.repository.BookInformationRepository;
+import ua.sukhorutchenko.library.service.interf.BookInformationService;
 
 import java.util.List;
 
 @Service
-public class BookInformationService {
+public class BookInformationServiceImpl implements BookInformationService {
 
     private final BookInformationRepository bookInformationRepository;
 
-    public BookInformationService(BookInformationRepository bookInformationRepository) {
+    public BookInformationServiceImpl(BookInformationRepository bookInformationRepository) {
         this.bookInformationRepository = bookInformationRepository;
     }
 

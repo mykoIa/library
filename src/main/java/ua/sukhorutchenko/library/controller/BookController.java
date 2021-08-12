@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.entity.Book;
-import ua.sukhorutchenko.library.service.AuthorService;
-import ua.sukhorutchenko.library.service.BookInformationService;
-import ua.sukhorutchenko.library.service.BookService;
-import ua.sukhorutchenko.library.service.PublisherService;
+import ua.sukhorutchenko.library.service.AuthorServiceImpl;
+import ua.sukhorutchenko.library.service.BookInformationServiceImpl;
+import ua.sukhorutchenko.library.service.BookServiceImpl;
+import ua.sukhorutchenko.library.service.PublisherServiceImpl;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
 
-    private final BookService bookService;
-    private final AuthorService authorService;
-    private final PublisherService publisherService;
-    private final BookInformationService bookInformationService;
+    private final BookServiceImpl bookService;
+    private final AuthorServiceImpl authorService;
+    private final PublisherServiceImpl publisherService;
+    private final BookInformationServiceImpl bookInformationService;
 
-    public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService, BookInformationService bookInformationService) {
+    public BookController(BookServiceImpl bookService, AuthorServiceImpl authorService, PublisherServiceImpl publisherService, BookInformationServiceImpl bookInformationService) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.publisherService = publisherService;

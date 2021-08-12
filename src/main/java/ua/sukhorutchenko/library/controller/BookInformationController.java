@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.entity.BookInformation;
-import ua.sukhorutchenko.library.service.BookInformationService;
+import ua.sukhorutchenko.library.service.BookInformationServiceImpl;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/bookInfo")
 public class BookInformationController {
 
-    private final BookInformationService bookInformationService;
+    private final BookInformationServiceImpl bookInformationService;
 
-    public BookInformationController(BookInformationService bookInformationService) {
+    public BookInformationController(BookInformationServiceImpl bookInformationService) {
         this.bookInformationService = bookInformationService;
     }
 

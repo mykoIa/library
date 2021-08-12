@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.entity.Publisher;
-import ua.sukhorutchenko.library.service.PublisherService;
+import ua.sukhorutchenko.library.service.PublisherServiceImpl;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/publisher")
 public class PublisherController {
 
-    private final PublisherService publisherService;
+    private final PublisherServiceImpl publisherService;
 
-    public PublisherController(PublisherService publisherService) {
+    public PublisherController(PublisherServiceImpl publisherService) {
         this.publisherService = publisherService;
     }
 

@@ -3,15 +3,16 @@ package ua.sukhorutchenko.library.service;
 import org.springframework.stereotype.Service;
 import ua.sukhorutchenko.library.entity.Publisher;
 import ua.sukhorutchenko.library.repository.PublisherRepository;
+import ua.sukhorutchenko.library.service.interf.PublisherService;
 
 import java.util.List;
 
 @Service
-public class PublisherService {
+public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;
 
-    public PublisherService(PublisherRepository publisherRepository) {
+    public PublisherServiceImpl(PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
 
