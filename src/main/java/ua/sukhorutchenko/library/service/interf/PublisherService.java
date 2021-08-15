@@ -15,4 +15,5 @@ public interface PublisherService {
     void deletePublisherById(Long id);
 
     void updatePublisher(Publisher publisher, String name);
+
 }

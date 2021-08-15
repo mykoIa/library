@@ -36,4 +36,5 @@ public class PublisherServiceImpl implements PublisherService {
         publisher.setPublisherName(name);
         publisherRepository.save(publisher);
     }
+
 }

@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.sukhorutchenko.library.dto.BookInformationDTO;
 import ua.sukhorutchenko.library.entity.BookInformation;
+import ua.sukhorutchenko.library.mapper.BookInformationMapper;
 import ua.sukhorutchenko.library.service.BookInformationServiceImpl;
 
 import java.util.List;
@@ -20,13 +22,13 @@ public class BookInformationController {
     }
 
     @GetMapping("/get")
-    public List<BookInformation> showAllBookInfo() {
-        return bookInformationService.findAllBookInformation();
+    public List<BookInformationDTO> showAllBookInfo() {
+        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findAllBookInformation());
     }
 
     @GetMapping("/get/{id}")
-    public BookInformation findBookInfoById(@PathVariable("id") Long id) {
-        return bookInformationService.findBookInformationById(id);
+    public BookInformationDTO findBookInfoById(@PathVariable("id") Long id) {
+        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));
     }
 
     @RequestMapping("/delete/{id}")

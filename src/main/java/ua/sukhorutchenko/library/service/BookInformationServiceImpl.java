@@ -37,4 +37,5 @@ public class BookInformationServiceImpl implements BookInformationService {
         bookInfo.setNumberOfPages(numberOfPages);
         bookInformationRepository.save(bookInfo);
     }
+
 }

@@ -15,4 +15,5 @@ public interface BookInformationService {
     void deleteBookInformationById(Long id);
 
     void updateBookInformation(BookInformation bookInfo, String genre, Long numberOfPages);
+
 }

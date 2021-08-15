@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.sukhorutchenko.library.dto.BookDTO;
 import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.mapper.BookMapper;
 import ua.sukhorutchenko.library.service.AuthorServiceImpl;
 import ua.sukhorutchenko.library.service.BookInformationServiceImpl;
 import ua.sukhorutchenko.library.service.BookServiceImpl;
@@ -30,13 +32,13 @@ public class BookController {
     }
 
     @GetMapping("/get")
-    public List<Book> showAllBook() {
-        return bookService.findAllBook();
+    public List<BookDTO> showAllBook() {
+        return BookMapper.INSTANCE.toDTO(bookService.findAllBook());
     }
 
     @GetMapping("/get/{id}")
-    public Book findBookById(@PathVariable("id") Long id) {
-        return bookService.findBookById(id);
+    public BookDTO findBookById(@PathVariable("id") Long id) {
+        return BookMapper.INSTANCE.toDTO(bookService.findBookById(id));
     }
 
 

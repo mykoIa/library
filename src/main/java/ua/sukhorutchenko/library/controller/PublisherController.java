@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.sukhorutchenko.library.dto.PublisherDTO;
 import ua.sukhorutchenko.library.entity.Publisher;
+import ua.sukhorutchenko.library.mapper.PublisherMapper;
 import ua.sukhorutchenko.library.service.PublisherServiceImpl;
 
 import java.util.List;
@@ -21,13 +23,13 @@ public class PublisherController {
     }
 
     @GetMapping("/get")
-    public List<Publisher> showAllPublisher() {
-        return publisherService.findAllPublisher();
+    public List<PublisherDTO> showAllPublisher() {
+        return PublisherMapper.INSTANCE.toDTO(publisherService.findAllPublisher());
     }
 
     @GetMapping("/get/{id}")
-    public Publisher findPublisherById(@PathVariable("id") Long id) {
-        return publisherService.findPublisherById(id);
+    public PublisherDTO findPublisherById(@PathVariable("id") Long id) {
+        return PublisherMapper.INSTANCE.toDTO(publisherService.findPublisherById(id));
     }
 
     @DeleteMapping("/delete/{id}")
