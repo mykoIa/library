@@ -2,8 +2,11 @@ package ua.sukhorutchenko.library.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.dto.PublisherDTO;
 import ua.sukhorutchenko.library.entity.Publisher;
@@ -22,30 +25,34 @@ public class PublisherController {
         this.publisherService = publisherService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public List<PublisherDTO> showAllPublisher() {
         return PublisherMapper.INSTANCE.toDTO(publisherService.findAllPublisher());
     }
 
-    @GetMapping("/get/{id}")
-    public PublisherDTO findPublisherById(@PathVariable("id") Long id) {
-        return PublisherMapper.INSTANCE.toDTO(publisherService.findPublisherById(id));
+    @PostMapping("/getById")
+    @ResponseBody
+    public PublisherDTO findPublisherById(@RequestBody PublisherDTO publisher) {
+        return PublisherMapper.INSTANCE.toDTO(publisherService.findPublisherById(publisher.getId()));
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deletePublisher(@PathVariable("id") Long id) {
-        publisherService.deletePublisherById(id);
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public void deletePublisher(@RequestBody PublisherDTO publisher) {
+        publisherService.deletePublisherById(publisher.getId());
     }
 
-    @GetMapping("/add/{name}")
-    public void addPublisher(@PathVariable("name") String name) {
-        publisherService.addPublisher(new Publisher(name));
+    @PostMapping(value = "/add")
+    @ResponseBody
+    public void addPublisher(@RequestBody PublisherDTO publisher) {
+        publisherService.addPublisher(new Publisher(publisher.getPublisherName()));
     }
 
-    @RequestMapping("/update/{id}&{name}")
-    public void updatePublisher(@PathVariable("id") Long id,
-                                @PathVariable("name") String name) {
-        publisherService.updatePublisher(publisherService.findPublisherById(id), name);
+    @PutMapping("/update")
+    @ResponseBody
+    public void updatePublisher(@RequestBody PublisherDTO publisher) {
+        publisherService.updatePublisher(publisherService.findPublisherById(publisher.getId()), publisher.getPublisherName());
     }
+
 }
 

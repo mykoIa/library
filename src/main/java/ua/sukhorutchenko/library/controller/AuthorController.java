@@ -1,8 +1,12 @@
 package ua.sukhorutchenko.library.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.dto.AuthorDTO;
 import ua.sukhorutchenko.library.entity.Author;
@@ -21,30 +25,32 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public List<AuthorDTO> showAllAuthor() {
         return AuthorMapper.INSTANCE.toDTO(authorService.findAllAuthor());
     }
 
-    @GetMapping("/get/{id}")
-    public AuthorDTO findAuthorById(@PathVariable("id") Long id) {
-        return AuthorMapper.INSTANCE.toDTO(authorService.findAuthorById(id));
+    @PostMapping("/getById")
+    @ResponseBody
+    public AuthorDTO findAuthorById(@RequestBody AuthorDTO author) {
+        return AuthorMapper.INSTANCE.toDTO(authorService.findAuthorById(author.getId()));
     }
 
-    @RequestMapping("/delete/{id}")
-    public void deleteAuthor(@PathVariable("id") Long id) {
-        authorService.deleteAuthorById(id);
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public void deleteAuthor(@RequestBody AuthorDTO author) {
+        authorService.deleteAuthorById(author.getId());
     }
 
-    @RequestMapping(value = "/add/{name}")
-    public void addAuthor(@PathVariable("name") String name) {
-        authorService.addAuthor(new Author(name));
+    @PostMapping(value = "/add")
+    @ResponseBody
+    public void addAuthor(@RequestBody AuthorDTO author) {
+        authorService.addAuthor(new Author(author.getFullName()));
     }
 
-    @RequestMapping("/update/{id}&{name}")
-    public void updateAuthor(@PathVariable("id") Long id,
-                             @PathVariable("name") String name) {
-        authorService.updateAuthor(authorService.findAuthorById(id), name);
+    @PutMapping("/update")
+    @ResponseBody
+    public void updateAuthor(@RequestBody AuthorDTO author) {
+        authorService.updateAuthor(authorService.findAuthorById(author.getId()), author.getFullName());
     }
 }
-

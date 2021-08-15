@@ -1,8 +1,12 @@
 package ua.sukhorutchenko.library.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.dto.BookInformationDTO;
 import ua.sukhorutchenko.library.entity.BookInformation;
@@ -21,31 +25,33 @@ public class BookInformationController {
         this.bookInformationService = bookInformationService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public List<BookInformationDTO> showAllBookInfo() {
         return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findAllBookInformation());
     }
 
-    @GetMapping("/get/{id}")
-    public BookInformationDTO findBookInfoById(@PathVariable("id") Long id) {
-        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));
+    @PostMapping("/getById")
+    @ResponseBody
+    public BookInformationDTO findBookInfoById(@RequestBody BookInformationDTO bookInformationDTO) {
+        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(bookInformationDTO.getId()));
     }
 
-    @RequestMapping("/delete/{id}")
-    public void deleteBookInfo(@PathVariable("id") Long id) {
-        bookInformationService.deleteBookInformationById(id);
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public void deleteBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
+        bookInformationService.deleteBookInformationById(bookInformationDTO.getId());
     }
 
-    @GetMapping("/add/{genre}&{numberOfPages}")
-    public void addBookInfo(@PathVariable("genre") String genre,
-                            @PathVariable("numberOfPages") Long numberOfPages) {
-        bookInformationService.addBookInformation(new BookInformation(genre, numberOfPages));
+    @PostMapping(value = "/add")
+    @ResponseBody
+    public void addBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
+        bookInformationService.addBookInformation(new BookInformation(bookInformationDTO.getGenre(), bookInformationDTO.getNumberOfPages()));
     }
 
-    @RequestMapping("/update/{id}&{genre}&{numberOfPages}")
-    public void updateBookInfo(@PathVariable("id") Long id,
-                               @PathVariable("genre") String genre,
-                               @PathVariable("numberOfPages") Long numberOfPages) {
-        bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(id), genre, numberOfPages);
+    @PutMapping("/update")
+    @ResponseBody
+    public void updateBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
+        bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(bookInformationDTO.getId()),
+                bookInformationDTO.getGenre(), bookInformationDTO.getNumberOfPages());
     }
 }
