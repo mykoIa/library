@@ -11,15 +11,15 @@
 You can use swagger for test /api/library/swagger-ui.html
 ### Author
 #### /api/library/author
-/get - get all author \
-/get/{id} - get author by id \
-/delete/{id} - delete author by id \
-/add/{name} - create new author \
-/update/{id}&{name} - update author, {id} author which update, {name} new name
+/getAll - get all author \
+/get - get author by id \
+/delete - delete author by id \
+/add - create new author \
+/update - update author, {id} author which update, {name} new name
 
 #### Example
 
-/api/library/author/add/J. K. Rowling
+curl -X POST "http://localhost:8080/api/library/author/add" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"fullName\": \"J. K. Rowling\"}"
 
 ```json
 {
@@ -30,16 +30,16 @@ You can use swagger for test /api/library/swagger-ui.html
 
 ### Book Information
 #### /api/library/bookInfo
-/get - get all information about books \
-/get/{id} - get info by id \
-/delete/{id} - delete info by id \
-/add/{genre}&{numberOfPages} - create new info \
-/update/{id}&{genre}&{numberOfPages} - update information, {id} information which update, \
+/getAll - get all information about books \
+/get - get info by id \
+/delete - delete info by id \
+/add - create new info \
+/update - update information, {id} information which update, \
 {genre} new genre, {numberOfPages} - new number of pages 
 
 #### Example
 
-/api/library/bookInfo/add/Fantasy&223
+curl -X POST "http://localhost:8080/api/library/bookInfo/add" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"genre\": \"Fantasy\", \"numberOfPages\": 223}"
 
 ```json
 {
@@ -51,15 +51,15 @@ You can use swagger for test /api/library/swagger-ui.html
 ### Publisher
 #### /api/library/publisher
 
-/get - get all publisher\
-/get/{id} - get publisher by id \
-/delete/{id} - delete publisher by id \
-/add/{name} - create new publisher \
-/update/{id}&{name} - update publisher, {id} publisher which update, {name} new name of publisher
+/getAll - get all publisher\
+/get - get publisher by id \
+/delete - delete publisher by id \
+/add - create new publisher \
+/update - update publisher, {id} publisher which update, {name} new name of publisher
 
 #### Example
 
-/api/library/publisher/add/Bloomsbury (UK)
+curl -X POST "http://localhost:8080/api/library/publisher/add" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"publisherName\": \"Bloomsbury (UK)\"}"
 
 ```json
    {
@@ -70,15 +70,15 @@ You can use swagger for test /api/library/swagger-ui.html
 ### Book
 #### /api/library/book
 
-/get - get all books  \
-/get/{id} - get book by id \
-/delete/{id} - delete book by id \
-/add/{name}&{author_id}&{publisher_id}&{infoId} - create new book \
-/update/{book_id}&{name}&{author_id}&{publisher_id}&{infoId} - update book
+/getAll - get all books  \
+/get - get book by id \
+/delete - delete book by id \
+/add - create new book \
+/update - update book 
 
 #### Example
 
-/api/library/book/add/Harry Potter and the Philosopher's Stone&1&1&1
+curl -X POST "http://localhost:8080/api/library/book/add" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"author\": { \"id\": 1 }, \"bookInformation\": { \"id\": 1 }, \"name\": \"Harry Potter and the Philosopher's Stone\", \"publisher\": { \"id\": 1 }}"
 
 ```json
 {
