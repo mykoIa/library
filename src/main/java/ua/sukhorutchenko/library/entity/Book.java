@@ -28,15 +28,15 @@ public class Book {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "book_information_id")
     private BookInformation bookInformation;
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "book")
     private Publisher publisher;
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "author_id")
     private Author author;
 

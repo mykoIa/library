@@ -53,4 +53,5 @@ public class AuthorController {
     public void updateAuthor(@RequestBody AuthorDTO author) {
         authorService.updateAuthor(authorService.findAuthorById(author.getId()), author.getFullName());
     }
+
 }

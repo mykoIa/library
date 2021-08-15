@@ -54,4 +54,5 @@ public class BookInformationController {
         bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(bookInformationDTO.getId()),
                 bookInformationDTO.getGenre(), bookInformationDTO.getNumberOfPages());
     }
+
 }

@@ -45,4 +45,5 @@ public class YAMLConfig {
     public void setServers(String servers) {
         this.servers = servers;
     }
+
 }

@@ -2,7 +2,6 @@ package ua.sukhorutchenko.library.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,7 +44,6 @@ public class BookController {
     public BookDTO findBookById(@RequestBody BookDTO book) {
         return BookMapper.INSTANCE.toDTO(bookService.findBookById(book.getId()));
     }
-
 
     @DeleteMapping("/delete")
     @ResponseBody
