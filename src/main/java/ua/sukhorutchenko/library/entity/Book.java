@@ -10,12 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.List;
 
 
 @Data
@@ -39,14 +36,11 @@ public class Book {
     @JoinColumn(name = "book")
     private Publisher publisher;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_author",
-            joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id",
-                    referencedColumnName = "id"))
-    private List<Author> author;
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "author_id")
+    private Author author;
 
-    public Book(String name, List<Author> author, Publisher publisher, BookInformation bookInformation) {
+    public Book(String name, Author author, Publisher publisher, BookInformation bookInformation) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
