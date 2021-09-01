@@ -37,7 +37,7 @@ public class BookServiceImpl implements BookService {
 
     public void updateBook(Book book, String name, Author author, Publisher publisher, BookInformation bookInformation) {
         book.setName(name);
-        book.setAuthor(author);
+//        book.setAuthor(author);
         book.setPublisher(publisher);
         book.setBookInformation(bookInformation);
         bookRepository.save(book);

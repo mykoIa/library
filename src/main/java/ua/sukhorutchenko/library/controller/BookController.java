@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.sukhorutchenko.library.dto.BookDTO;
+import ua.sukhorutchenko.library.entity.Author;
 import ua.sukhorutchenko.library.entity.Book;
 import ua.sukhorutchenko.library.mapper.BookMapper;
 import ua.sukhorutchenko.library.service.AuthorServiceImpl;
@@ -55,7 +56,7 @@ public class BookController {
     @ResponseBody
     public void addBook(@RequestBody BookDTO book) {
         bookService.addBook(new Book(book.getName(),
-                authorService.findAuthorById(book.getAuthor().getId()),
+                authorService.findAuthorsById((List<Author>) book.getAuthor()),
                 publisherService.findPublisherById(book.getPublisher().getId()),
                 bookInformationService.findBookInformationById(book.getBookInformation().getId())));
     }

@@ -5,6 +5,7 @@ import ua.sukhorutchenko.library.entity.Author;
 import ua.sukhorutchenko.library.repository.AuthorRepository;
 import ua.sukhorutchenko.library.service.interf.AuthorService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +23,14 @@ public class AuthorServiceImpl implements AuthorService {
 
     public Author findAuthorById(Long id) {
         return authorRepository.findById(id).get();
+    }
+
+    public List<Author> findAuthorsById(List<Author> authors) {
+        List<Author> result = new ArrayList<>();
+        for (Author author : authors) {
+            result.add(findAuthorById(author.getId()));
+        }
+        return result;
     }
 
     public Author addAuthor(Author author) {
