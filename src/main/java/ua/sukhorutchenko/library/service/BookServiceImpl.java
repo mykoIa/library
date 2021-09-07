@@ -9,6 +9,7 @@ import ua.sukhorutchenko.library.repository.BookRepository;
 import ua.sukhorutchenko.library.service.interf.BookService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book findBookById(Long id) {
-        return bookRepository.findById(id).get();
+        return bookRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Book addBook(Book book) {
