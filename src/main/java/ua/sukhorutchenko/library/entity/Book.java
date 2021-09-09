@@ -3,16 +3,8 @@ package ua.sukhorutchenko.library.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -36,11 +28,14 @@ public class Book {
     @JoinColumn(name = "book")
     private Publisher publisher;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinColumn(name = "author_id")
-    private Author author;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "author_l",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
+    private List<Author> author;
 
-    public Book(String name, Author author, Publisher publisher, BookInformation bookInformation) {
+    public Book(String name, List<Author> author, Publisher publisher, BookInformation bookInformation) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
