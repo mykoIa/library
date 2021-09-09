@@ -28,7 +28,7 @@ public class Book {
     @JoinColumn(name = "book")
     private Publisher publisher;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "author_l",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
