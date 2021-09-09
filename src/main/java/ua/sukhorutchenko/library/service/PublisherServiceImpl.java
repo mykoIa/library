@@ -6,6 +6,7 @@ import ua.sukhorutchenko.library.repository.PublisherRepository;
 import ua.sukhorutchenko.library.service.interf.PublisherService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PublisherServiceImpl implements PublisherService {
@@ -21,7 +22,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     public Publisher findPublisherById(Long id) {
-        return publisherRepository.findById(id).get();
+        return publisherRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Publisher addPublisher(Publisher publisher) {

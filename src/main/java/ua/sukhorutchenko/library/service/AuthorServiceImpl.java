@@ -6,6 +6,7 @@ import ua.sukhorutchenko.library.repository.AuthorRepository;
 import ua.sukhorutchenko.library.service.interf.AuthorService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -21,7 +22,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     public Author findAuthorById(Long id) {
-        return authorRepository.findById(id).get();
+        return authorRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Author addAuthor(Author author) {
