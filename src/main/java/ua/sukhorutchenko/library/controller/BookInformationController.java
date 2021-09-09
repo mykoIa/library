@@ -23,7 +23,7 @@ public class BookInformationController {
         return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findAllBookInformation());
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getById/{id}")
     @ResponseBody
     public BookInformationDTO findBookInfoById(@PathVariable Long id) {
         return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));

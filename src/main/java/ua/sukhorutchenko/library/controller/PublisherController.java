@@ -23,7 +23,7 @@ public class PublisherController {
         return PublisherMapper.INSTANCE.toDTO(publisherService.findAllPublisher());
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getById/{id}")
     @ResponseBody
     public PublisherDTO findPublisherById(@PathVariable Long id) {
         return PublisherMapper.INSTANCE.toDTO(publisherService.findPublisherById(id));

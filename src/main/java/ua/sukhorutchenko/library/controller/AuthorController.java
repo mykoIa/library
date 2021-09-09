@@ -23,7 +23,7 @@ public class AuthorController {
         return AuthorMapper.INSTANCE.toDTO(authorService.findAllAuthor());
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getById/{id}")
     @ResponseBody
     public AuthorDTO findAuthorById(@PathVariable Long id) {
         return AuthorMapper.INSTANCE.toDTO(authorService.findAuthorById(id));
