@@ -1,13 +1,6 @@
 package ua.sukhorutchenko.library.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.sukhorutchenko.library.dto.BookInformationDTO;
 import ua.sukhorutchenko.library.entity.BookInformation;
 import ua.sukhorutchenko.library.mapper.BookInformationMapper;
@@ -30,10 +23,10 @@ public class BookInformationController {
         return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findAllBookInformation());
     }
 
-    @PostMapping("/getById")
+    @GetMapping("/getById/{id}")
     @ResponseBody
-    public BookInformationDTO findBookInfoById(@RequestBody BookInformationDTO bookInformationDTO) {
-        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(bookInformationDTO.getId()));
+    public BookInformationDTO findBookInfoById(@PathVariable Long id) {
+        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));
     }
 
     @DeleteMapping("/delete")

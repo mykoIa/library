@@ -6,6 +6,8 @@ import ua.sukhorutchenko.library.entity.Author;
 import ua.sukhorutchenko.library.entity.BookInformation;
 import ua.sukhorutchenko.library.entity.Publisher;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class BookDTO {
@@ -18,9 +20,9 @@ public class BookDTO {
 
     private Publisher publisher;
 
-    private Author author;
+    private List<Author> author;
 
-    public BookDTO(String name, Author author, Publisher publisher, BookInformation bookInformation) {
+    public BookDTO(String name, List<Author> author, Publisher publisher, BookInformation bookInformation) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
