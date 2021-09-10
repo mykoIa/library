@@ -2,44 +2,47 @@ package ua.sukhorutchenko.library.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import ua.sukhorutchenko.library.entity.Author;
 import ua.sukhorutchenko.library.repository.AuthorRepository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class AuthorServiceImplTest {
 
-    @Autowired
+    @InjectMocks
     private AuthorServiceImpl authorService;
 
-    @MockBean
+    @Mock
     private AuthorRepository authorRepository;
 
     @Test
     void findAllAuthor() {
-        Mockito.doReturn(new Author())
-                .when(authorRepository)
-                .findAll();
-        Mockito.verify(authorRepository, Mockito.times(1)).findAll();
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author());
+        authors.add(new Author());
+        authors.add(new Author());
+        when(authorRepository.findAll()).thenReturn(authors);
+        assertEquals(3, authorService.findAllAuthor().size());
     }
 
     @Test
     void findAuthorById() {
         Author author = new Author();
         author.setId(1L);
-        Mockito.doReturn(new Author())
-                .when(authorRepository)
-                .findById(1L);
-        Mockito.verify(authorRepository, Mockito.times(1)).findById(1L);
+        author.setFullName("Test Name");
+        when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
+        assertEquals(author.getFullName(), authorRepository.findById(1L).orElseThrow(NoSuchElementException::new).getFullName());
     }
 
     @Test
