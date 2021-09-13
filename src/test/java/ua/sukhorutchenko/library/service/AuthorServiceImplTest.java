@@ -34,7 +34,7 @@ class AuthorServiceImplTest {
         authors.add(new Author());
 
         when(authorRepository.findAll()).thenReturn(authors);
-        
+
         assertEquals(3, authorService.findAllAuthor().size());
     }
 
