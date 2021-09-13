@@ -7,7 +7,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.sukhorutchenko.library.dto.BookDTO;
+import ua.sukhorutchenko.library.entity.Author;
 import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.entity.BookInformation;
+import ua.sukhorutchenko.library.entity.Publisher;
+import ua.sukhorutchenko.library.repository.AuthorRepository;
 import ua.sukhorutchenko.library.repository.BookRepository;
 
 import java.util.ArrayList;
@@ -25,7 +29,19 @@ class BookServiceImplTest {
     private BookServiceImpl bookService;
 
     @Mock
+    private AuthorServiceImpl authorService;
+
+    @Mock
+    private PublisherServiceImpl publisherService;
+
+    @Mock
+    private BookInformationServiceImpl bookInformationService;
+
+    @Mock
     private BookRepository bookRepository;
+
+    @Mock
+    private AuthorRepository authorRepository;
 
     @Test
     void findAllBook() {
@@ -52,10 +68,57 @@ class BookServiceImplTest {
 
     @Test
     void addBook() {
-        BookDTO book = new BookDTO();
-        bookService.addBook(book);
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setName("Test Name");
 
+        List<Author> authorsIds = new ArrayList<>();
+        authorsIds.add(new Author());
+        authorsIds.get(0).setId(1L);
+        authorsIds.add(new Author());
+        authorsIds.get(1).setId(2L);
+        authorsIds.add(new Author());
+        authorsIds.get(2).setId(3L);
+        bookDTO.setAuthor(authorsIds);
+
+        List<Author> getAuthors = new ArrayList<>();
+        getAuthors.add(new Author());
+        getAuthors.get(0).setId(1L);
+        getAuthors.get(0).setFullName("test1");
+        getAuthors.add(new Author());
+        getAuthors.get(1).setId(2L);
+        getAuthors.get(1).setFullName("test2");
+        getAuthors.add(new Author());
+        getAuthors.get(2).setId(3L);
+        getAuthors.get(2).setFullName("test3");
+
+        when(authorService.findAuthorById(1L)).thenReturn(getAuthors.get(0));
+        when(authorService.findAuthorById(2L)).thenReturn(getAuthors.get(1));
+        when(authorService.findAuthorById(3L)).thenReturn(getAuthors.get(2));
+
+        Publisher publisherId = new Publisher();
+        publisherId.setId(1L);
+        bookDTO.setPublisher(publisherId);
+
+        Publisher publisher = new Publisher();
+        publisher.setId(1L);
+        publisher.setPublisherName("test publisher name");
+
+        when(publisherService.findPublisherById(1L)).thenReturn(publisher);
+
+        BookInformation bookInformationId = new BookInformation();
+        bookInformationId.setId(1L);
+        bookDTO.setBookInformation(bookInformationId);
+
+        BookInformation bookInformation = new BookInformation();
+        bookInformation.setId(1L);
+        bookInformation.setGenre("adventure");
+        bookInformation.setNumberOfPages(222L);
+
+        when(bookInformationService.findBookInformationById(1L)).thenReturn(bookInformation);
+
+        bookService.addBook(bookDTO);
     }
+
 
     @Test
     void deleteBookById() {
