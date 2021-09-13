@@ -41,7 +41,9 @@ class AuthorServiceImplTest {
         Author author = new Author();
         author.setId(1L);
         author.setFullName("Test Name");
+
         when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
+
         assertEquals(author.getFullName(), authorRepository.findById(1L).orElseThrow(NoSuchElementException::new).getFullName());
     }
 
@@ -49,6 +51,7 @@ class AuthorServiceImplTest {
     void addAuthor() {
         Author author = new Author();
         authorService.addAuthor(author);
+
         Mockito.verify(authorRepository, Mockito.times(1)).save(author);
     }
 
@@ -57,7 +60,9 @@ class AuthorServiceImplTest {
         Author author = new Author();
         author.setId(1L);
         author.setFullName("Test Name");
+
         authorService.deleteAuthorById(1L);
+
         Mockito.verify(authorRepository, Mockito.times(1)).deleteById(1L);
     }
 
@@ -66,10 +71,13 @@ class AuthorServiceImplTest {
         Author author = new Author();
         author.setId(1L);
         author.setFullName("Test Name");
+
         when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
+
         Author authorById = authorService.findAuthorById(1L);
         authorById.setFullName("Update Name");
         authorService.updateAuthor(authorById, "Test Name");
+        
         Mockito.verify(authorRepository, Mockito.times(1)).save(authorById);
     }
 }
