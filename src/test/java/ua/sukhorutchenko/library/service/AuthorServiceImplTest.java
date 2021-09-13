@@ -32,7 +32,9 @@ class AuthorServiceImplTest {
         authors.add(new Author());
         authors.add(new Author());
         authors.add(new Author());
+
         when(authorRepository.findAll()).thenReturn(authors);
+        
         assertEquals(3, authorService.findAllAuthor().size());
     }
 
@@ -77,7 +79,7 @@ class AuthorServiceImplTest {
         Author authorById = authorService.findAuthorById(1L);
         authorById.setFullName("Update Name");
         authorService.updateAuthor(authorById, "Test Name");
-        
+
         Mockito.verify(authorRepository, Mockito.times(1)).save(authorById);
     }
 }
