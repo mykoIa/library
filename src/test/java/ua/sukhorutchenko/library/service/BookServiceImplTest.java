@@ -117,6 +117,9 @@ class BookServiceImplTest {
         when(bookInformationService.findBookInformationById(1L)).thenReturn(bookInformation);
 
         bookService.addBook(bookDTO);
+
+        Mockito.verify(bookRepository).save(Mockito.any(Book.class));
+
     }
 
 
