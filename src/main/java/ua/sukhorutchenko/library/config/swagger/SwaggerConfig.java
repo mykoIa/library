@@ -1,9 +1,7 @@
-package ua.sukhorutchenko.library.config;
+package ua.sukhorutchenko.library.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -16,7 +14,7 @@ import java.util.Collections;
 
 @EnableSwagger2
 @Configuration
-public class SwaggerConfig extends WebMvcConfigurationSupport {
+public class SwaggerConfig {
 
     @Bean
     public Docket api() {
@@ -36,15 +34,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 "Terms of service on request :)",
                 new Contact("Mykola Sukhorutchenko", "", "m.sukhorutchenko@infostroy.com.ua"),
                 "License of API", "API license URL", Collections.emptyList());
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }
