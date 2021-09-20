@@ -29,10 +29,10 @@ public class AuthorController {
         return AuthorMapper.INSTANCE.toDTO(authorService.findAuthorById(id));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public void deleteAuthor(@RequestBody AuthorDTO author) {
-        authorService.deleteAuthorById(author.getId());
+    public void deleteAuthor(@PathVariable Long id) {
+        authorService.deleteAuthorById(id);
     }
 
     @PostMapping(value = "/add")
