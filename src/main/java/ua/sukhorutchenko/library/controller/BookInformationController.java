@@ -29,10 +29,10 @@ public class BookInformationController {
         return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public void deleteBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
-        bookInformationService.deleteBookInformationById(bookInformationDTO.getId());
+    public void deleteBookInfo(@PathVariable Long id) {
+        bookInformationService.deleteBookInformationById(id);
     }
 
     @PostMapping(value = "/add")

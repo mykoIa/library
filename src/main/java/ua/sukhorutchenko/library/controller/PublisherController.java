@@ -29,10 +29,10 @@ public class PublisherController {
         return PublisherMapper.INSTANCE.toDTO(publisherService.findPublisherById(id));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public void deletePublisher(@RequestBody PublisherDTO publisher) {
-        publisherService.deletePublisherById(publisher.getId());
+    public void deletePublisher(@PathVariable Long id) {
+        publisherService.deletePublisherById(id);
     }
 
     @PostMapping(value = "/add")
