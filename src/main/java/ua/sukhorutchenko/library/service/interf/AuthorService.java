@@ -1,19 +1,19 @@
 package ua.sukhorutchenko.library.service.interf;
 
-import ua.sukhorutchenko.library.entity.Author;
+import ua.sukhorutchenko.library.dto.AuthorDTO;
 
 import java.util.List;
 
 public interface AuthorService {
 
-    List<Author> findAllAuthor();
+    List<AuthorDTO> findAllAuthor();
 
-    Author findAuthorById(Long id);
+    AuthorDTO findAuthorById(Long id);
 
-    Author addAuthor(Author author);
+    void addAuthor(AuthorDTO author);
 
     void deleteAuthorById(Long id);
 
-    void updateAuthor(Author author, String name);
+    void updateAuthor(AuthorDTO author);
 
 }

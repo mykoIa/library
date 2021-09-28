@@ -16,13 +16,13 @@ public class BookDTO {
 
     private String name;
 
-    private BookInformation bookInformation;
+    private BookInformationDTO bookInformation;
 
-    private Publisher publisher;
+    private PublisherDTO publisher;
 
-    private List<Author> author;
+    private List<AuthorDTO> author;
 
-    public BookDTO(String name, List<Author> author, Publisher publisher, BookInformation bookInformation) {
+    public BookDTO(String name, List<AuthorDTO> author, PublisherDTO publisher, BookInformationDTO bookInformation) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;

@@ -2,7 +2,8 @@ package ua.sukhorutchenko.library.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.sukhorutchenko.library.entity.Publisher;
+import ua.sukhorutchenko.library.dto.PublisherDTO;
+import ua.sukhorutchenko.library.mapper.PublisherMapper;
 import ua.sukhorutchenko.library.repository.PublisherRepository;
 import ua.sukhorutchenko.library.service.interf.PublisherService;
 
@@ -13,24 +14,26 @@ import java.util.NoSuchElementException;
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;
+    private final PublisherMapper publisherMapper;
 
-    public PublisherServiceImpl(PublisherRepository publisherRepository) {
+    public PublisherServiceImpl(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
         this.publisherRepository = publisherRepository;
+        this.publisherMapper = publisherMapper;
     }
 
     @Transactional
-    public List<Publisher> findAllPublisher() {
-        return publisherRepository.findAll();
+    public List<PublisherDTO> findAllPublisher() {
+        return publisherMapper.entityToDTO(publisherRepository.findAll());
     }
 
     @Transactional
-    public Publisher findPublisherById(Long id) {
-        return publisherRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public PublisherDTO findPublisherById(Long id) {
+        return publisherMapper.entityToDTO(publisherRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Transactional
-    public Publisher addPublisher(Publisher publisher) {
-        return publisherRepository.save(publisher);
+    public void addPublisher(PublisherDTO publisher) {
+        publisherRepository.save(publisherMapper.dtoToEntity(publisher));
     }
 
     @Transactional
@@ -39,9 +42,10 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Transactional
-    public void updatePublisher(Publisher publisher, String name) {
-        publisher.setPublisherName(name);
-        publisherRepository.save(publisher);
+    public void updatePublisher(PublisherDTO publisherDTO) {
+        PublisherDTO publisher = findPublisherById(publisherDTO.getId());
+        publisher.setPublisherName(publisherDTO.getPublisherName());
+        publisherRepository.save(publisherMapper.dtoToEntity(publisher));
     }
 
 }

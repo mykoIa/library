@@ -66,61 +66,61 @@ class BookServiceImplTest {
         assertEquals(book.getName(), bookRepository.findById(1L).orElseThrow(NoSuchElementException::new).getName());
     }
 
-    @Test
-    void addBook() {
-        BookDTO bookDTO = new BookDTO();
-        bookDTO.setName("Test Name");
-
-        List<Author> authorsIds = new ArrayList<>();
-        authorsIds.add(new Author());
-        authorsIds.get(0).setId(1L);
-        authorsIds.add(new Author());
-        authorsIds.get(1).setId(2L);
-        authorsIds.add(new Author());
-        authorsIds.get(2).setId(3L);
-        bookDTO.setAuthor(authorsIds);
-
-        List<Author> getAuthors = new ArrayList<>();
-        getAuthors.add(new Author());
-        getAuthors.get(0).setId(1L);
-        getAuthors.get(0).setFullName("test1");
-        getAuthors.add(new Author());
-        getAuthors.get(1).setId(2L);
-        getAuthors.get(1).setFullName("test2");
-        getAuthors.add(new Author());
-        getAuthors.get(2).setId(3L);
-        getAuthors.get(2).setFullName("test3");
-
-        when(authorService.findAuthorById(1L)).thenReturn(getAuthors.get(0));
-        when(authorService.findAuthorById(2L)).thenReturn(getAuthors.get(1));
-        when(authorService.findAuthorById(3L)).thenReturn(getAuthors.get(2));
-
-        Publisher publisherId = new Publisher();
-        publisherId.setId(1L);
-        bookDTO.setPublisher(publisherId);
-
-        Publisher publisher = new Publisher();
-        publisher.setId(1L);
-        publisher.setPublisherName("test publisher name");
-
-        when(publisherService.findPublisherById(1L)).thenReturn(publisher);
-
-        BookInformation bookInformationId = new BookInformation();
-        bookInformationId.setId(1L);
-        bookDTO.setBookInformation(bookInformationId);
-
-        BookInformation bookInformation = new BookInformation();
-        bookInformation.setId(1L);
-        bookInformation.setGenre("adventure");
-        bookInformation.setNumberOfPages(222L);
-
-        when(bookInformationService.findBookInformationById(1L)).thenReturn(bookInformation);
-
-        bookService.addBook(bookDTO);
-
-        Mockito.verify(bookRepository).save(Mockito.any(Book.class));
-
-    }
+//    @Test
+//    void addBook() {
+//        BookDTO bookDTO = new BookDTO();
+//        bookDTO.setName("Test Name");
+//
+//        List<Author> authorsIds = new ArrayList<>();
+//        authorsIds.add(new Author());
+//        authorsIds.get(0).setId(1L);
+//        authorsIds.add(new Author());
+//        authorsIds.get(1).setId(2L);
+//        authorsIds.add(new Author());
+//        authorsIds.get(2).setId(3L);
+//        bookDTO.setAuthor(authorsIds);
+//
+//        List<Author> getAuthors = new ArrayList<>();
+//        getAuthors.add(new Author());
+//        getAuthors.get(0).setId(1L);
+//        getAuthors.get(0).setFullName("test1");
+//        getAuthors.add(new Author());
+//        getAuthors.get(1).setId(2L);
+//        getAuthors.get(1).setFullName("test2");
+//        getAuthors.add(new Author());
+//        getAuthors.get(2).setId(3L);
+//        getAuthors.get(2).setFullName("test3");
+//
+//        when(authorService.findAuthorById(1L)).thenReturn(getAuthors.get(0));
+//        when(authorService.findAuthorById(2L)).thenReturn(getAuthors.get(1));
+//        when(authorService.findAuthorById(3L)).thenReturn(getAuthors.get(2));
+//
+//        Publisher publisherId = new Publisher();
+//        publisherId.setId(1L);
+//        bookDTO.setPublisher(publisherId);
+//
+//        Publisher publisher = new Publisher();
+//        publisher.setId(1L);
+//        publisher.setPublisherName("test publisher name");
+//
+//        when(publisherService.findPublisherById(1L)).thenReturn(publisher);
+//
+//        BookInformation bookInformationId = new BookInformation();
+//        bookInformationId.setId(1L);
+//        bookDTO.setBookInformation(bookInformationId);
+//
+//        BookInformation bookInformation = new BookInformation();
+//        bookInformation.setId(1L);
+//        bookInformation.setGenre("adventure");
+//        bookInformation.setNumberOfPages(222L);
+//
+//        when(bookInformationService.findBookInformationById(1L)).thenReturn(bookInformation);
+//
+//        bookService.addBook(bookDTO);
+//
+//        Mockito.verify(bookRepository).save(Mockito.any(Book.class));
+//
+//    }
 
 
     @Test
@@ -134,68 +134,68 @@ class BookServiceImplTest {
         Mockito.verify(bookRepository, Mockito.times(1)).deleteById(1L);
     }
 
-    @Test
-    void updateBook() {
-        Book bookForUpdate = new Book();
-        bookForUpdate.setId(1L);
-        bookForUpdate.setName("Test Name");
-
-        List<Author> getAuthors = new ArrayList<>();
-        getAuthors.add(new Author());
-        getAuthors.get(0).setId(1L);
-        getAuthors.get(0).setFullName("test1");
-        getAuthors.add(new Author());
-        getAuthors.get(1).setId(2L);
-        getAuthors.get(1).setFullName("test2");
-        getAuthors.add(new Author());
-        getAuthors.get(2).setId(3L);
-        getAuthors.get(2).setFullName("test3");
-        bookForUpdate.setAuthor(getAuthors);
-
-        Publisher publisher = new Publisher();
-        publisher.setId(1L);
-        publisher.setPublisherName("test publisher name");
-        bookForUpdate.setPublisher(publisher);
-
-        BookInformation bookInformation = new BookInformation();
-        bookInformation.setId(1L);
-        bookInformation.setGenre("adventure");
-        bookInformation.setNumberOfPages(222L);
-        bookForUpdate.setBookInformation(bookInformation);
-
-        BookDTO book = new BookDTO();
-        book.setId(1L);
-        book.setName("update test name");
-
-        List<Author> updateAuthor = new ArrayList<>();
-        updateAuthor.add(new Author());
-        updateAuthor.get(0).setId(1L);
-        updateAuthor.get(0).setFullName("UP_test1");
-        updateAuthor.add(new Author());
-        updateAuthor.get(1).setId(2L);
-        updateAuthor.get(1).setFullName("UP_test2");
-        updateAuthor.add(new Author());
-        updateAuthor.get(2).setId(3L);
-        updateAuthor.get(2).setFullName("UP_test3");
-        book.setAuthor(updateAuthor);
-
-        Publisher updatePublisher = new Publisher();
-        updatePublisher.setId(1L);
-        updatePublisher.setPublisherName("UP_test publisher name");
-        book.setPublisher(updatePublisher);
-
-        BookInformation updateBookInformation = new BookInformation();
-        updateBookInformation.setId(1L);
-        updateBookInformation.setGenre("UP_adventure");
-        updateBookInformation.setNumberOfPages(222L);
-        book.setBookInformation(updateBookInformation);
-
-        when(bookRepository.findById(1L)).thenReturn(Optional.of(bookForUpdate));
-
-        bookService.updateBook(book);
-
-        Mockito.verify(bookRepository, Mockito.times(1)).save(bookForUpdate);
-
-    }
+//    @Test
+//    void updateBook() {
+//        Book bookForUpdate = new Book();
+//        bookForUpdate.setId(1L);
+//        bookForUpdate.setName("Test Name");
+//
+//        List<Author> getAuthors = new ArrayList<>();
+//        getAuthors.add(new Author());
+//        getAuthors.get(0).setId(1L);
+//        getAuthors.get(0).setFullName("test1");
+//        getAuthors.add(new Author());
+//        getAuthors.get(1).setId(2L);
+//        getAuthors.get(1).setFullName("test2");
+//        getAuthors.add(new Author());
+//        getAuthors.get(2).setId(3L);
+//        getAuthors.get(2).setFullName("test3");
+//        bookForUpdate.setAuthor(getAuthors);
+//
+//        Publisher publisher = new Publisher();
+//        publisher.setId(1L);
+//        publisher.setPublisherName("test publisher name");
+//        bookForUpdate.setPublisher(publisher);
+//
+//        BookInformation bookInformation = new BookInformation();
+//        bookInformation.setId(1L);
+//        bookInformation.setGenre("adventure");
+//        bookInformation.setNumberOfPages(222L);
+//        bookForUpdate.setBookInformation(bookInformation);
+//
+//        BookDTO book = new BookDTO();
+//        book.setId(1L);
+//        book.setName("update test name");
+//
+//        List<Author> updateAuthor = new ArrayList<>();
+//        updateAuthor.add(new Author());
+//        updateAuthor.get(0).setId(1L);
+//        updateAuthor.get(0).setFullName("UP_test1");
+//        updateAuthor.add(new Author());
+//        updateAuthor.get(1).setId(2L);
+//        updateAuthor.get(1).setFullName("UP_test2");
+//        updateAuthor.add(new Author());
+//        updateAuthor.get(2).setId(3L);
+//        updateAuthor.get(2).setFullName("UP_test3");
+//        book.setAuthor(updateAuthor);
+//
+//        Publisher updatePublisher = new Publisher();
+//        updatePublisher.setId(1L);
+//        updatePublisher.setPublisherName("UP_test publisher name");
+//        book.setPublisher(updatePublisher);
+//
+//        BookInformation updateBookInformation = new BookInformation();
+//        updateBookInformation.setId(1L);
+//        updateBookInformation.setGenre("UP_adventure");
+//        updateBookInformation.setNumberOfPages(222L);
+//        book.setBookInformation(updateBookInformation);
+//
+//        when(bookRepository.findById(1L)).thenReturn(Optional.of(bookForUpdate));
+//
+//        bookService.updateBook(book);
+//
+//        Mockito.verify(bookRepository, Mockito.times(1)).save(bookForUpdate);
+//
+//    }
 
 }

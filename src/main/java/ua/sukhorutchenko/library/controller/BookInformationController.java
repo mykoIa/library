@@ -20,13 +20,13 @@ public class BookInformationController {
 
     @GetMapping("/getAll")
     public List<BookInformationDTO> showAllBookInfo() {
-        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findAllBookInformation());
+        return bookInformationService.findAllBookInformation();
     }
 
     @GetMapping("/getById/{id}")
     @ResponseBody
     public BookInformationDTO findBookInfoById(@PathVariable Long id) {
-        return BookInformationMapper.INSTANCE.toDTO(bookInformationService.findBookInformationById(id));
+        return bookInformationService.findBookInformationById(id);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -38,14 +38,13 @@ public class BookInformationController {
     @PostMapping(value = "/add")
     @ResponseBody
     public void addBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
-        bookInformationService.addBookInformation(new BookInformation(bookInformationDTO.getGenre(), bookInformationDTO.getNumberOfPages()));
+        bookInformationService.addBookInformation(bookInformationDTO);
     }
 
     @PutMapping("/update")
     @ResponseBody
     public void updateBookInfo(@RequestBody BookInformationDTO bookInformationDTO) {
-        bookInformationService.updateBookInformation(bookInformationService.findBookInformationById(bookInformationDTO.getId()),
-                bookInformationDTO.getGenre(), bookInformationDTO.getNumberOfPages());
+        bookInformationService.updateBookInformation(bookInformationDTO);
     }
 
 }

@@ -19,13 +19,13 @@ public class BookController {
 
     @GetMapping("/getAll")
     public List<BookDTO> showAllBook() {
-        return BookMapper.INSTANCE.toDTO(bookService.findAllBook());
+        return bookService.findAllBook();
     }
 
     @GetMapping("/getById/{id}")
     @ResponseBody
     public BookDTO findBookById(@PathVariable Long id) {
-        return BookMapper.INSTANCE.toDTO(bookService.findBookById(id));
+        return bookService.findBookById(id);
     }
 
     @DeleteMapping("/delete/{id}")

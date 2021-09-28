@@ -1,19 +1,18 @@
 package ua.sukhorutchenko.library.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import ua.sukhorutchenko.library.dto.BookDTO;
 import ua.sukhorutchenko.library.entity.Book;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BookMapper {
 
-    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
+    BookDTO entityToDTO(Book book);
 
-    BookDTO toDTO(Book book);
+    Book dtoToEntity(BookDTO bookDTO);
 
-    List<BookDTO> toDTO(List<Book> allBook);
+    List<BookDTO> entityToDTO(List<Book> books);
 
 }

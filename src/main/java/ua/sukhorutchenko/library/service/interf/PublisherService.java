@@ -1,19 +1,19 @@
 package ua.sukhorutchenko.library.service.interf;
 
-import ua.sukhorutchenko.library.entity.Publisher;
+import ua.sukhorutchenko.library.dto.PublisherDTO;
 
 import java.util.List;
 
 public interface PublisherService {
 
-    List<Publisher> findAllPublisher();
+    List<PublisherDTO> findAllPublisher();
 
-    Publisher findPublisherById(Long id);
+    PublisherDTO findPublisherById(Long id);
 
-    Publisher addPublisher(Publisher publisher);
+    void addPublisher(PublisherDTO publisher);
 
     void deletePublisherById(Long id);
 
-    void updatePublisher(Publisher publisher, String name);
+    void updatePublisher(PublisherDTO publisher);
 
 }

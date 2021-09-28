@@ -1,19 +1,19 @@
 package ua.sukhorutchenko.library.service.interf;
 
-import ua.sukhorutchenko.library.entity.BookInformation;
+import ua.sukhorutchenko.library.dto.BookInformationDTO;
 
 import java.util.List;
 
 public interface BookInformationService {
 
-    BookInformation findBookInformationById(Long id);
+    BookInformationDTO findBookInformationById(Long id);
 
-    List<BookInformation> findAllBookInformation();
+    List<BookInformationDTO> findAllBookInformation();
 
-    BookInformation addBookInformation(BookInformation bookInformation);
+    void addBookInformation(BookInformationDTO bookInformation);
 
     void deleteBookInformationById(Long id);
 
-    void updateBookInformation(BookInformation bookInfo, String genre, Long numberOfPages);
+    void updateBookInformation(BookInformationDTO bookInfo);
 
 }

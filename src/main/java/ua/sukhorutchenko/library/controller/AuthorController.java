@@ -20,13 +20,13 @@ public class AuthorController {
 
     @GetMapping("/getAll")
     public List<AuthorDTO> showAllAuthor() {
-        return AuthorMapper.INSTANCE.toDTO(authorService.findAllAuthor());
+        return authorService.findAllAuthor();
     }
 
     @GetMapping("/getById/{id}")
     @ResponseBody
     public AuthorDTO findAuthorById(@PathVariable Long id) {
-        return AuthorMapper.INSTANCE.toDTO(authorService.findAuthorById(id));
+        return authorService.findAuthorById(id);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -38,13 +38,13 @@ public class AuthorController {
     @PostMapping(value = "/add")
     @ResponseBody
     public void addAuthor(@RequestBody AuthorDTO author) {
-        authorService.addAuthor(new Author(author.getFullName()));
+        authorService.addAuthor(author);
     }
 
     @PutMapping("/update")
     @ResponseBody
     public void updateAuthor(@RequestBody AuthorDTO author) {
-        authorService.updateAuthor(authorService.findAuthorById(author.getId()), author.getFullName());
+        authorService.updateAuthor(author);
     }
 
 }

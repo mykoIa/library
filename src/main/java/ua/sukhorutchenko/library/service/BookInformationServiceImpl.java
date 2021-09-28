@@ -2,7 +2,8 @@ package ua.sukhorutchenko.library.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.sukhorutchenko.library.entity.BookInformation;
+import ua.sukhorutchenko.library.dto.BookInformationDTO;
+import ua.sukhorutchenko.library.mapper.BookInformationMapper;
 import ua.sukhorutchenko.library.repository.BookInformationRepository;
 import ua.sukhorutchenko.library.service.interf.BookInformationService;
 
@@ -13,24 +14,26 @@ import java.util.NoSuchElementException;
 public class BookInformationServiceImpl implements BookInformationService {
 
     private final BookInformationRepository bookInformationRepository;
+    private final BookInformationMapper bookInformationMapper;
 
-    public BookInformationServiceImpl(BookInformationRepository bookInformationRepository) {
+    public BookInformationServiceImpl(BookInformationRepository bookInformationRepository, BookInformationMapper bookInformationMapper) {
         this.bookInformationRepository = bookInformationRepository;
+        this.bookInformationMapper = bookInformationMapper;
     }
 
     @Transactional
-    public BookInformation findBookInformationById(Long id) {
-        return bookInformationRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public BookInformationDTO findBookInformationById(Long id) {
+        return bookInformationMapper.entityToDTO(bookInformationRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Transactional
-    public List<BookInformation> findAllBookInformation() {
-        return bookInformationRepository.findAll();
+    public List<BookInformationDTO> findAllBookInformation() {
+        return bookInformationMapper.entityToDTO(bookInformationRepository.findAll());
     }
 
     @Transactional
-    public BookInformation addBookInformation(BookInformation bookInformation) {
-        return bookInformationRepository.save(bookInformation);
+    public void addBookInformation(BookInformationDTO bookInformation) {
+        bookInformationRepository.save(bookInformationMapper.dtoToEntity(bookInformation));
     }
 
     @Transactional
@@ -39,10 +42,11 @@ public class BookInformationServiceImpl implements BookInformationService {
     }
 
     @Transactional
-    public void updateBookInformation(BookInformation bookInfo, String genre, Long numberOfPages) {
-        bookInfo.setGenre(genre);
-        bookInfo.setNumberOfPages(numberOfPages);
-        bookInformationRepository.save(bookInfo);
+    public void updateBookInformation(BookInformationDTO bookInfoDTO) {
+        BookInformationDTO bookInfo = findBookInformationById(bookInfoDTO.getId());
+        bookInfo.setGenre(bookInfoDTO.getGenre());
+        bookInfo.setNumberOfPages(bookInfoDTO.getNumberOfPages());
+        bookInformationRepository.save(bookInformationMapper.dtoToEntity(bookInfo));
     }
 
 }

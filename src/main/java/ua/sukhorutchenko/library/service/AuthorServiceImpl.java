@@ -2,7 +2,8 @@ package ua.sukhorutchenko.library.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.sukhorutchenko.library.entity.Author;
+import ua.sukhorutchenko.library.dto.AuthorDTO;
+import ua.sukhorutchenko.library.mapper.AuthorMapper;
 import ua.sukhorutchenko.library.repository.AuthorRepository;
 import ua.sukhorutchenko.library.service.interf.AuthorService;
 
@@ -13,24 +14,26 @@ import java.util.NoSuchElementException;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final AuthorMapper authorMapper;
 
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, AuthorMapper authorMapper) {
         this.authorRepository = authorRepository;
+        this.authorMapper = authorMapper;
     }
 
     @Transactional
-    public List<Author> findAllAuthor() {
-        return authorRepository.findAll();
+    public List<AuthorDTO> findAllAuthor() {
+        return authorMapper.entityToDTO(authorRepository.findAll());
     }
 
     @Transactional
-    public Author findAuthorById(Long id) {
-        return authorRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public AuthorDTO findAuthorById(Long id) {
+        return authorMapper.entityToDTO(authorRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Transactional
-    public Author addAuthor(Author author) {
-        return authorRepository.save(author);
+    public void addAuthor(AuthorDTO author) {
+        authorRepository.save(authorMapper.dtoToEntity(author));
     }
 
     @Transactional
@@ -39,9 +42,10 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Transactional
-    public void updateAuthor(Author author, String name) {
-        author.setFullName(name);
-        authorRepository.save(author);
+    public void updateAuthor(AuthorDTO authorDTO) {
+        AuthorDTO author = findAuthorById(authorDTO.getId());
+        author.setFullName(authorDTO.getFullName());
+        authorRepository.save(authorMapper.dtoToEntity(authorDTO));
     }
 
 }

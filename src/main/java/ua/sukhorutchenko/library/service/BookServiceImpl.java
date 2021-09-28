@@ -3,46 +3,38 @@ package ua.sukhorutchenko.library.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.sukhorutchenko.library.dto.BookDTO;
-import ua.sukhorutchenko.library.entity.Author;
-import ua.sukhorutchenko.library.entity.Book;
+import ua.sukhorutchenko.library.mapper.BookMapper;
 import ua.sukhorutchenko.library.repository.BookRepository;
 import ua.sukhorutchenko.library.service.interf.BookService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class BookServiceImpl implements BookService {
 
-    private final AuthorServiceImpl authorService;
-    private final PublisherServiceImpl publisherService;
-    private final BookInformationServiceImpl bookInformationService;
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorServiceImpl authorService, PublisherServiceImpl publisherService, BookInformationServiceImpl bookInformationService) {
+
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
-        this.authorService = authorService;
-        this.publisherService = publisherService;
-        this.bookInformationService = bookInformationService;
+        this.bookMapper = bookMapper;
     }
 
     @Transactional
-    public List<Book> findAllBook() {
-        return bookRepository.findAll();
+    public List<BookDTO> findAllBook() {
+        return bookMapper.entityToDTO(bookRepository.findAll());
     }
 
     @Transactional
-    public Book findBookById(Long id) {
-        return bookRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public BookDTO findBookById(Long id) {
+        return bookMapper.entityToDTO(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Transactional
     public void addBook(BookDTO book) {
-        bookRepository.save(new Book(book.getName(),
-                findAllAuthorBoIds(book.getAuthor()),
-                publisherService.findPublisherById(book.getPublisher().getId()),
-                bookInformationService.findBookInformationById(book.getBookInformation().getId())));
+        bookRepository.save(bookMapper.dtoToEntity(book));
     }
 
     @Transactional
@@ -51,24 +43,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    public void updateBook(BookDTO book) {
-        Book bookUpdate = findBookById(book.getId());
-        bookUpdate.setName(book.getName());
-        bookUpdate.setAuthor(findAllAuthorBoIds(book.getAuthor()));
-        bookUpdate.setPublisher(book.getPublisher());
-        bookUpdate.setBookInformation(book.getBookInformation());
-        bookRepository.save(bookUpdate);
-    }
-
-    private List<Author> findAllAuthorBoIds(List<Author> authorList) {
-        List<Author> result = new ArrayList<>();
-        if (authorList == null) {
-            return result;
-        }
-        for(Author author : authorList) {
-            result.add(authorService.findAuthorById(author.getId()));
-        }
-        return result;
+    public void updateBook(BookDTO bookDTO) {
+        BookDTO bookUpdate = findBookById(bookDTO.getId());
+        bookUpdate.setName(bookDTO.getName());
+        bookUpdate.setAuthor(bookDTO.getAuthor());
+        bookUpdate.setPublisher(bookDTO.getPublisher());
+        bookUpdate.setBookInformation(bookDTO.getBookInformation());
+        bookRepository.save(bookMapper.dtoToEntity(bookUpdate));
     }
 
 }

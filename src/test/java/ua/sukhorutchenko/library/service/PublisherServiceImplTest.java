@@ -49,13 +49,13 @@ class PublisherServiceImplTest {
         assertEquals(publisher.getPublisherName(), publisherRepository.findById(1L).orElseThrow(NoSuchElementException::new).getPublisherName());
     }
 
-    @Test
-    void addPublisher() {
-        Publisher publisher = new Publisher();
-        publisherService.addPublisher(publisher);
-
-        Mockito.verify(publisherRepository, Mockito.times(1)).save(publisher);
-    }
+//    @Test
+//    void addPublisher() {
+//        Publisher publisher = new Publisher();
+//        publisherService.addPublisher(publisher);
+//
+//        Mockito.verify(publisherRepository, Mockito.times(1)).save(publisher);
+//    }
 
     @Test
     void deletePublisherById() {
@@ -68,18 +68,18 @@ class PublisherServiceImplTest {
         Mockito.verify(publisherRepository, Mockito.times(1)).deleteById(1L);
     }
 
-    @Test
-    void updatePublisher() {
-        Publisher publisher = new Publisher();
-        publisher.setId(1L);
-        publisher.setPublisherName("Test Name");
-
-        when(publisherRepository.findById(1L)).thenReturn(Optional.of(publisher));
-
-        Publisher authorById = publisherService.findPublisherById(1L);
-        authorById.setPublisherName("Update Name");
-        publisherService.updatePublisher(authorById, "Test Name");
-
-        Mockito.verify(publisherRepository, Mockito.times(1)).save(authorById);
-    }
+//    @Test
+//    void updatePublisher() {
+//        Publisher publisher = new Publisher();
+//        publisher.setId(1L);
+//        publisher.setPublisherName("Test Name");
+//
+//        when(publisherRepository.findById(1L)).thenReturn(Optional.of(publisher));
+//
+//        Publisher authorById = publisherService.findPublisherById(1L);
+//        authorById.setPublisherName("Update Name");
+//        publisherService.updatePublisher(authorById, "Test Name");
+//
+//        Mockito.verify(publisherRepository, Mockito.times(1)).save(authorById);
+//    }
 }
