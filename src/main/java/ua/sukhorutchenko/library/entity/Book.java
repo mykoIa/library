@@ -2,6 +2,8 @@ package ua.sukhorutchenko.library.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,14 +22,17 @@ public class Book {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne
     @JoinColumn(name = "book_information_id")
     private BookInformation bookInformation;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
     @JoinColumn(name = "book")
     private Publisher publisher;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany
     @JoinTable(
             name = "author_l",
