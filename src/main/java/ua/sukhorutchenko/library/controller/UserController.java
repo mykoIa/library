@@ -33,6 +33,12 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
+//    @GetMapping(value = "/login")
+//    @ResponseBody
+//    public void checkuser(@RequestBody UserDTO user) {
+//        return userService.checkUser(user);
+//    }
+
     @PostMapping(value = "/add")
     @ResponseBody
     public void addUser(@RequestBody UserDTO user) {
