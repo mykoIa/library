@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Data
 @Entity
 @NoArgsConstructor
@@ -48,3 +47,4 @@ public class Book {
     }
 
 }
+

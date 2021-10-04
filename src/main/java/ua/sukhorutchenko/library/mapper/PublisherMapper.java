@@ -11,7 +11,7 @@ public interface PublisherMapper {
 
     PublisherDTO entityToDTO(Publisher publisher);
 
-    Publisher dtoToEntity(PublisherDTO bookDTO);
+    Publisher dtoToEntity(PublisherDTO publisherDTO);
 
     List<PublisherDTO> entityToDTO(List<Publisher> publishers);
 

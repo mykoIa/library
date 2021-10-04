@@ -11,7 +11,7 @@ public interface BookInformationMapper {
 
     BookInformationDTO entityToDTO(BookInformation bookInformation);
 
-    BookInformation dtoToEntity(BookInformationDTO bookDTO);
+    BookInformation dtoToEntity(BookInformationDTO bookInformationDTO);
 
     List<BookInformationDTO> entityToDTO(List<BookInformation> bookInformation);
 

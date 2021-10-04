@@ -11,7 +11,7 @@ public interface AuthorMapper {
 
     AuthorDTO entityToDTO(Author author);
 
-    Author dtoToEntity(AuthorDTO bookDTO);
+    Author dtoToEntity(AuthorDTO authorDTO);
 
     List<AuthorDTO> entityToDTO(List<Author> authors);
 
