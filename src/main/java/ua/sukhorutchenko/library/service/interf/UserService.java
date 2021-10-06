@@ -16,4 +16,5 @@ public interface UserService {
 
     void updateUser(UserDTO user);
 
+    UserDTO checkUser(String login, String password);
 }

@@ -27,17 +27,18 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @GetMapping(value = "/login/{login}&{password}")
+    @ResponseBody
+    public UserDTO checkUser(@PathVariable String login,
+                             @PathVariable String password) {
+        return userService.checkUser(login, password);
+    }
+
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
     }
-
-//    @GetMapping(value = "/login")
-//    @ResponseBody
-//    public void checkuser(@RequestBody UserDTO user) {
-//        return userService.checkUser(user);
-//    }
 
     @PostMapping(value = "/add")
     @ResponseBody
